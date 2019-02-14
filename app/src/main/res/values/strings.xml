@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">clima-ui</string>
+    <string name="app_name">Weather</string>
+    <string name="add_city">Add City</string>
+    <string name="search">Search</string>
 </resources>

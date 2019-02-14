@@ -16,6 +16,9 @@ import com.gudino.clima_ui.clima_ui.model.UIItem
 import com.gudino.clima_ui.clima_ui.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.weather_detail_fragment.*
 
+/**
+ * Displays screen with search after user clicks on add city in the right panel
+ */
 class AddCityFragment : Fragment(), CitiesAdapter.Action {
 
     private lateinit var viewModel: WeatherViewModel

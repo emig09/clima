@@ -23,7 +23,6 @@ import com.gudino.clima_ui.clima_ui.adapter.CitiesAdapter
 import com.gudino.clima_ui.clima_ui.fragment.AddCityFragment
 import com.gudino.clima_ui.clima_ui.fragment.WeatherDetailFragment
 import com.gudino.clima_ui.clima_ui.model.UIItem
-import com.gudino.clima_ui.clima_ui.model.UIItem.Companion.TEXT_TYPE
 import com.gudino.clima_ui.clima_ui.model.UIItem.Companion.TITLE_TYPE
 import com.gudino.clima_ui.clima_ui.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -118,21 +117,13 @@ class MainActivity : AppCompatActivity(), CitiesAdapter.Action {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                             Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+                //
             } else {
-                // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
                         arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                         MY_PERMISSIONS_REQUEST_COARSE_LOCATION)
-
-                // MY_PERMISSIONS_REQUEST_COARSE_LOCATION is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         } else {
             getLastKnownLocation()
@@ -144,30 +135,19 @@ class MainActivity : AppCompatActivity(), CitiesAdapter.Action {
             MY_PERMISSIONS_REQUEST_COARSE_LOCATION -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+                    // permission granted
                     getLastKnownLocation()
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    // permission denied
                 }
                 return
-            }
-
-        // Add other 'when' lines to check for other
-        // permissions this app might request.
-            else -> {
-                // Ignore all other requests.
             }
         }
     }
 
     private fun getLastKnownLocation() {
-        // Acquire a reference to the system Location Manager
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val locationProvider: String = LocationManager.NETWORK_PROVIDER
-        // Or use LocationManager.GPS_PROVIDER
-
         val lastKnownLocation: Location = locationManager.getLastKnownLocation(locationProvider)
         viewModel.getCityByLocation(lastKnownLocation.latitude, lastKnownLocation.longitude)
     }

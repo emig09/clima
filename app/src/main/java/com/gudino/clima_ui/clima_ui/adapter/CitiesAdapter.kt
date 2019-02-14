@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.weather_detail_item_plus_button.view.*
 import kotlinx.android.synthetic.main.weather_detail_item_text.view.*
 import kotlinx.android.synthetic.main.weather_detail_item_title.view.*
 
+/**
+ * Adapter to display list of cities in the left panel
+ */
 class CitiesAdapter(private val action: Action? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface Action {

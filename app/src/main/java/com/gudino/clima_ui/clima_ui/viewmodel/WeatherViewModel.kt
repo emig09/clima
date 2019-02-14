@@ -23,6 +23,9 @@ class WeatherViewModel : BaseViewModel() {
 
     val errors = MutableLiveData<String>()
 
+    /**
+     * Returns weather given the lat-long provided (the one got at the time user opens the app)
+     */
     fun getCityByLocation(latitude: Double, longitude: Double) {
         weatherApi.getWeatherDataByLocation(latitude, longitude).enqueue(object : Callback<WeatherResponse> {
 
@@ -39,6 +42,9 @@ class WeatherViewModel : BaseViewModel() {
         })
     }
 
+    /**
+     * Return cities given a query when user introduce it in the search view
+     */
     fun getCityByName(cityName: String) {
         weatherApi.getCitiesByName(cityName).enqueue(object : Callback<CityResponse> {
 
@@ -55,6 +61,9 @@ class WeatherViewModel : BaseViewModel() {
         })
     }
 
+    /**
+     * Returns 5 day weather for a specific city, given an id
+     */
     fun getCityById(id: Int) {
         weatherApi.getWeatherDataById(id).enqueue(object : Callback<WeatherResponse> {
 

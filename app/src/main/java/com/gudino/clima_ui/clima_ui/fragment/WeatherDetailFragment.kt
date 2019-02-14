@@ -15,6 +15,9 @@ import com.gudino.clima_ui.clima_ui.model.WeatherResponse
 import com.gudino.clima_ui.clima_ui.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.weather_detail_fragment.*
 
+/**
+ * Displays city name, datetime and temperature for an specific city
+ */
 class WeatherDetailFragment : Fragment() {
 
     private lateinit var viewModel: WeatherViewModel

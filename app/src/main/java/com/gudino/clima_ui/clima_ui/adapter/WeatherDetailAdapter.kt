@@ -13,6 +13,9 @@ import kotlinx.android.synthetic.main.weather_detail_item_text.view.*
 import kotlinx.android.synthetic.main.weather_detail_item_title.view.*
 import java.util.*
 
+/**
+ * Adapter to display detail of date times and temperature
+ */
 class WeatherDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {

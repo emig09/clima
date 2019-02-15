@@ -4,3 +4,5 @@
 - When app starts, first city displayed is got by lat-long.
 - When user adds a city, name and id are stored and then, when returning to the detail screen, that id is used to get detail of weather
 for the corresponding city.
+- Note ui design is just simple. I preferred to complete all the challenge faster over introduce a better design.
+- Note location permission logic is on MainActivity. I considered better to left that there over create an utility class.

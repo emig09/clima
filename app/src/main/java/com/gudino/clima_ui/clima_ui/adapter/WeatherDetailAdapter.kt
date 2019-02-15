@@ -18,10 +18,6 @@ import java.util.*
  */
 class WeatherDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    companion object {
-        private const val DATE_TIME_FORMATTER = "yyyy-MM-dd HH:mm:ss"
-    }
-
     private var items: ArrayList<UIItem> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

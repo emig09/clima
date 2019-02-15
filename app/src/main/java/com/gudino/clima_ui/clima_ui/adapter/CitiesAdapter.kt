@@ -23,6 +23,7 @@ class CitiesAdapter(private val action: Action? = null) : RecyclerView.Adapter<R
     interface Action {
         fun tap()
         fun tapAndAdd(uiItem: UIItem)
+        fun tapAndDisplayScreen(uiItem: UIItem)
     }
 
     private var items: ArrayList<UIItem> = ArrayList()
@@ -33,6 +34,7 @@ class CitiesAdapter(private val action: Action? = null) : RecyclerView.Adapter<R
             UIItem.PLUS_BUTTON_TYPE -> PlusButtonViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.weather_detail_item_plus_button, parent, false))
             UIItem.TITLE_TYPE -> TitleViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.weather_detail_item_title, parent, false))
             UIItem.HEADER_TYPE -> HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.weather_detail_item_header, parent, false))
+            UIItem.TAPPED_TYPE -> TappedTextViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.weather_detail_item_text, parent, false))
             else -> throw IllegalArgumentException("Cannot render other type!")
         }
     }
@@ -43,6 +45,7 @@ class CitiesAdapter(private val action: Action? = null) : RecyclerView.Adapter<R
             UIItem.PLUS_BUTTON_TYPE -> (holder as CitiesAdapter.PlusButtonViewHolder).bind(action!!)
             UIItem.TITLE_TYPE -> (holder as CitiesAdapter.TitleViewHolder).bind(items[position], action!!)
             UIItem.HEADER_TYPE -> holder as CitiesAdapter.HeaderViewHolder
+            UIItem.TAPPED_TYPE -> (holder as CitiesAdapter.TappedTextViewHolder).bind(items[position], action!!)
         }
     }
 
@@ -52,6 +55,7 @@ class CitiesAdapter(private val action: Action? = null) : RecyclerView.Adapter<R
             1 -> UIItem.PLUS_BUTTON_TYPE
             2 -> UIItem.TITLE_TYPE
             3 -> UIItem.HEADER_TYPE
+            4 -> UIItem.TAPPED_TYPE
             else -> -1
         }
     }
@@ -86,6 +90,11 @@ class CitiesAdapter(private val action: Action? = null) : RecyclerView.Adapter<R
         notifyDataSetChanged()
     }
 
+    fun clearItems() {
+        items.clear()
+        notifyDataSetChanged()
+    }
+
     inner class TextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(text: String?) = with(itemView) {
             tv_text.text = text
@@ -101,7 +110,6 @@ class CitiesAdapter(private val action: Action? = null) : RecyclerView.Adapter<R
     }
 
     inner class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bind(uiItem: UIItem, action: Action) = with(itemView) {
             tv_title.text = uiItem.text
             setOnClickListener {
@@ -111,4 +119,13 @@ class CitiesAdapter(private val action: Action? = null) : RecyclerView.Adapter<R
     }
 
     inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    inner class TappedTextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(uiItem: UIItem, action: Action) = with(itemView) {
+            tv_text.text = uiItem.text
+            setOnClickListener {
+                action.tapAndDisplayScreen(uiItem)
+            }
+        }
+    }
 }

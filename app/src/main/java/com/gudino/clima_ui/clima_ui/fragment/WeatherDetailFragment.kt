@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.gudino.clima_ui.clima_ui.R
 import com.gudino.clima_ui.clima_ui.adapter.WeatherDetailAdapter
-import com.gudino.clima_ui.clima_ui.model.WeatherResponse
 import com.gudino.clima_ui.clima_ui.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.weather_detail_fragment.*
 
@@ -48,6 +47,8 @@ class WeatherDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        Toast.makeText(activity, "Data is coming!", Toast.LENGTH_SHORT).show()
 
         adapter = WeatherDetailAdapter()
         list.layoutManager = LinearLayoutManager(activity)

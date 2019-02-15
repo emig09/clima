@@ -50,6 +50,11 @@ class AddCityFragment : Fragment(), CitiesAdapter.Action {
         list.adapter = adapter
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter.clearItems()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
         val searchMenu = menu.findItem(R.id.action_search)
@@ -79,7 +84,7 @@ class AddCityFragment : Fragment(), CitiesAdapter.Action {
 
     override fun tap() = Unit
 
-    override fun tapAndAdd(uiItem: UIItem) {
-        viewModel.addCityToList(uiItem)
-    }
+    override fun tapAndAdd(uiItem: UIItem) = viewModel.addCityToList(uiItem)
+
+    override fun tapAndDisplayScreen(uiItem: UIItem) = Unit
 }

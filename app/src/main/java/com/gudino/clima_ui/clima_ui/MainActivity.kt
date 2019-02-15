@@ -23,7 +23,8 @@ import com.gudino.clima_ui.clima_ui.adapter.CitiesAdapter
 import com.gudino.clima_ui.clima_ui.fragment.AddCityFragment
 import com.gudino.clima_ui.clima_ui.fragment.WeatherDetailFragment
 import com.gudino.clima_ui.clima_ui.model.UIItem
-import com.gudino.clima_ui.clima_ui.model.UIItem.Companion.TITLE_TYPE
+import com.gudino.clima_ui.clima_ui.model.UIItem.Companion.TAPPED_TYPE
+import com.gudino.clima_ui.clima_ui.model.UIItem.Companion.TEXT_TYPE
 import com.gudino.clima_ui.clima_ui.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -44,13 +45,13 @@ class MainActivity : AppCompatActivity(), CitiesAdapter.Action {
         viewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
 
         viewModel.weatherResponseByCity.observe(this, Observer {
-            it?.run { adapter.addCity(UIItem(TITLE_TYPE, it.city.name.plus(", ${it.city.country}"))) }
+            it?.run { adapter.addCity(UIItem(TAPPED_TYPE, it.city.name.plus(", ${it.city.country}"), it.city.id)) }
         })
 
         viewModel.cityAddedToList.observe(this, Observer {
             supportFragmentManager.popBackStack()
             it?.run {
-                adapter.addCity(it)
+                adapter.addCity(it.copy(type = TAPPED_TYPE))
                 viewModel.getCityById(it.id!!)
             }
         })
@@ -99,8 +100,11 @@ class MainActivity : AppCompatActivity(), CitiesAdapter.Action {
                 .commit()
     }
 
-    override fun tapAndAdd(uiItem: UIItem) {
-        adapter.addCity(uiItem)
+    override fun tapAndAdd(uiItem: UIItem) = adapter.addCity(uiItem)
+
+    override fun tapAndDisplayScreen(uiItem: UIItem) {
+        drawerLayout.closeDrawers()
+        viewModel.getCityById(uiItem.id!!)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
